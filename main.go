@@ -20,53 +20,60 @@ type Car struct {
 	BackWheel  rl.Vector2
 }
 
-const squareSize = 20
-const limit = 500
-const fric = 0.9
-const drag = 0.02
-const mass = 10
+const (
+	squareSize   = 20
+	limit        = 500
+	fric         = 0.9
+	drag         = 0.02
+	mass         = 10
+	maxBuildings = 500
+)
+
+var (
+	carTexture rl.Texture2D
+)
 
 func (c Car) Draw() {
-	rl.DrawCircleV(c.FrontWheel, 10, rl.Green)
-	rl.DrawLineEx(c.BackWheel, c.FrontWheel, 50, rl.Pink)
+	w := float32(carTexture.Width)
+	h := float32(carTexture.Height)
+
+	sin, cos := math.Sincos(deg2Rad(c.Heading))
+	offset := rl.Vector2{
+		X: float32(cos)*w/2 - float32(sin)*h/2,
+		Y: float32(sin)*w/2 + float32(cos)*h/2,
+	}
+
+	rl.DrawTextureEx(carTexture, rl.Vector2Subtract(c.Vector2, offset), float32(c.Heading), 1, rl.White)
 }
 
 func (c *Car) Update(dt float64) {
-	frontWheel := rl.Vector2Add(
-		c.Vector2,
+	headingVector := rl.Vector2{
+		X: float32(math.Cos(deg2Rad(c.Heading))),
+		Y: float32(math.Sin(deg2Rad(c.Heading))),
+	}
+
+	c.FrontWheel = rl.Vector2Add(c.Vector2,
 		rl.Vector2Scale(
-			rl.Vector2{
-				X: float32(math.Cos(deg2Rad(c.Heading))),
-				Y: float32(math.Sin(deg2Rad(c.Heading))),
-			},
+			headingVector,
 			float32(c.WheelBase/2),
 		),
 	)
 
-	backWheel := rl.Vector2Subtract(
-		c.Vector2,
+	c.BackWheel = rl.Vector2Subtract(c.Vector2,
 		rl.Vector2Scale(
-			rl.Vector2{
-				X: float32(math.Cos(deg2Rad(c.Heading))),
-				Y: float32(math.Sin(deg2Rad(c.Heading))),
-			},
+			headingVector,
 			float32(c.WheelBase/2),
 		),
 	)
 
-	backWheel = rl.Vector2Add(
-		backWheel,
+	c.BackWheel = rl.Vector2Add(c.BackWheel,
 		rl.Vector2Scale(
-			rl.Vector2{
-				X: float32(math.Cos(deg2Rad(c.Heading))),
-				Y: float32(math.Sin(deg2Rad(c.Heading))),
-			},
+			headingVector,
 			float32(c.Speed*dt),
 		),
 	)
 
-	frontWheel = rl.Vector2Add(
-		frontWheel,
+	c.FrontWheel = rl.Vector2Add(c.FrontWheel,
 		rl.Vector2Scale(
 			rl.Vector2{
 				X: float32(math.Cos(deg2Rad(c.Heading + c.SteeringAngle))),
@@ -76,27 +83,21 @@ func (c *Car) Update(dt float64) {
 		),
 	)
 
-	c.Heading = rad2Deg(math.Atan2(deg2Rad(float64(frontWheel.Y-backWheel.Y)), deg2Rad(float64(frontWheel.X-backWheel.X))))
-	c.BackWheel = backWheel
-	c.FrontWheel = frontWheel
-	c.Vector2 = rl.Vector2Scale(
-		rl.Vector2Add(
-			frontWheel,
-			backWheel,
-		), 0.5)
+	c.Heading = float64(rl.Vector2Angle(c.BackWheel, c.FrontWheel))
+	c.Vector2 = rl.Vector2Scale(rl.Vector2Add(c.FrontWheel, c.BackWheel), 0.5)
 }
-
-var (
-	maxBuildings int = 500
-)
 
 func main() {
 	screenWidth := int32(1024)
 	screenHeight := int32(768)
 
 	rl.InitWindow(screenWidth, screenHeight, "get real")
+	rl.SetConfigFlags(rl.FlagMsaa4xHint)
 
-	car := Car{WheelBase: 70, Vector2: rl.Vector2{X: 0, Y: 0}, Heading: 0, SteeringAngle: 0}
+	carTexture = rl.LoadTexture("car.png")
+	defer rl.UnloadTexture(carTexture)
+
+	car := Car{WheelBase: float64(carTexture.Width - 10.0), Vector2: rl.Vector2{X: 0, Y: 0}, Heading: 0, SteeringAngle: 0}
 
 	buildings := make([]rl.Rectangle, maxBuildings)
 	buildColors := make([]rl.Color, maxBuildings)
@@ -133,7 +134,7 @@ func main() {
 		prev = time.Now()
 
 		if rl.IsKeyDown(rl.KeyR) {
-			car = Car{WheelBase: 70, Vector2: rl.Vector2{X: 0, Y: 0}, Heading: 0, SteeringAngle: 0}
+			car = Car{WheelBase: float64(carTexture.Width - 10.0), Vector2: rl.Vector2{X: 0, Y: 0}, Heading: 0, SteeringAngle: 0}
 		}
 
 		// f = m * a
@@ -176,6 +177,7 @@ func main() {
 		rl.ClearBackground(rl.RayWhite)
 
 		rl.BeginMode2D(camera)
+
 		for i := range buildings {
 			top := buildings[i]
 			bottom := rl.Rectangle{
@@ -190,6 +192,16 @@ func main() {
 		car.Draw()
 
 		rl.EndMode2D()
+
+		w := float32(carTexture.Width)
+		h := float32(carTexture.Height)
+		x := float32(car.X - w/2)
+		y := float32(car.Y - h/2)
+		rl.DrawText(fmt.Sprintln(car.Heading), 10, 768-150, 20, rl.Black)
+		rl.DrawText(fmt.Sprintln(car.X), 10, 768-120, 20, rl.Black)
+		rl.DrawText(fmt.Sprintln(car.Y), 10, 768-90, 20, rl.Black)
+		rl.DrawText(fmt.Sprintln(x), 10, 768-60, 20, rl.Black)
+		rl.DrawText(fmt.Sprintln(y), 10, 768-30, 20, rl.Black)
 
 		rl.DrawText("Press R to restart", 5, 5, 25, rl.Black)
 		rl.DrawText("Use WASD to move", 5, 35, 25, rl.Black)
