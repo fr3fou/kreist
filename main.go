@@ -193,16 +193,6 @@ func main() {
 
 		rl.EndMode2D()
 
-		w := float32(carTexture.Width)
-		h := float32(carTexture.Height)
-		x := float32(car.X - w/2)
-		y := float32(car.Y - h/2)
-		rl.DrawText(fmt.Sprintln(car.Heading), 10, 768-150, 20, rl.Black)
-		rl.DrawText(fmt.Sprintln(car.X), 10, 768-120, 20, rl.Black)
-		rl.DrawText(fmt.Sprintln(car.Y), 10, 768-90, 20, rl.Black)
-		rl.DrawText(fmt.Sprintln(x), 10, 768-60, 20, rl.Black)
-		rl.DrawText(fmt.Sprintln(y), 10, 768-30, 20, rl.Black)
-
 		rl.DrawText("Press R to restart", 5, 5, 25, rl.Black)
 		rl.DrawText("Use WASD to move", 5, 35, 25, rl.Black)
 		rl.DrawText(fmt.Sprintf("%d", int(car.Speed)), 1024-80, 768-50, 35, rl.Black)
