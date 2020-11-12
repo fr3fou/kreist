@@ -141,10 +141,10 @@ func main() {
 		deacc := fric*10 + (drag * math.Pow(car.Speed, 2) / mass)
 
 		if rl.IsKeyDown(rl.KeyW) {
-			car.Speed += 5
+			car.Speed += 20
 		}
 		if rl.IsKeyDown(rl.KeyS) {
-			car.Speed -= 5
+			car.Speed -= 20
 		}
 
 		if car.Speed > 0 {
