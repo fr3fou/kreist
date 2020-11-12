@@ -21,12 +21,11 @@ type Car struct {
 }
 
 const (
-	squareSize   = 20
-	limit        = 500
-	fric         = 0.9
-	drag         = 0.02
-	mass         = 10
-	maxBuildings = 500
+	squareSize = 20
+	limit      = 500
+	fric       = 0.9
+	drag       = 0.02
+	mass       = 10
 )
 
 var (
@@ -94,30 +93,13 @@ func main() {
 	rl.InitWindow(screenWidth, screenHeight, "get real")
 	rl.SetConfigFlags(rl.FlagMsaa4xHint)
 
+	bg := rl.LoadTexture("levels/level1.png")
+	defer rl.UnloadTexture(bg)
+
 	carTexture = rl.LoadTexture("car.png")
 	defer rl.UnloadTexture(carTexture)
 
 	car := Car{WheelBase: float64(carTexture.Width - 10.0), Vector2: rl.Vector2{X: 0, Y: 0}, Heading: 0, SteeringAngle: 0}
-
-	buildings := make([]rl.Rectangle, maxBuildings)
-	buildColors := make([]rl.Color, maxBuildings)
-
-	spacing := float32(0)
-
-	for i := 0; i < maxBuildings; i++ {
-		r := rl.Rectangle{}
-		r.Width = float32(rl.GetRandomValue(50, 200))
-		r.Height = float32(rl.GetRandomValue(100, 800))
-		r.Y = float32(screenHeight) - 130 - r.Height
-		r.X = -6000 + spacing
-
-		spacing += r.Width
-
-		c := rl.NewColor(byte(rl.GetRandomValue(200, 240)), byte(rl.GetRandomValue(200, 240)), byte(rl.GetRandomValue(200, 250)), byte(255))
-
-		buildings[i] = r
-		buildColors[i] = c
-	}
 
 	camera := rl.Camera2D{
 		Target:   rl.NewVector2(float32(car.X+20), float32(car.Y+20)),
@@ -163,10 +145,10 @@ func main() {
 
 		car.SteeringAngle = 0
 		if rl.IsKeyDown(rl.KeyD) {
-			car.SteeringAngle = 30
+			car.SteeringAngle = 50
 		}
 		if rl.IsKeyDown(rl.KeyA) {
-			car.SteeringAngle = -30
+			car.SteeringAngle = -50
 		}
 
 		car.Update(dt.Seconds())
@@ -178,17 +160,7 @@ func main() {
 
 		rl.BeginMode2D(camera)
 
-		for i := range buildings {
-			top := buildings[i]
-			bottom := rl.Rectangle{
-				X:      top.X,
-				Y:      top.Y + top.Height,
-				Height: top.Height,
-				Width:  top.Width,
-			}
-			rl.DrawRectangleRec(top, buildColors[i])
-			rl.DrawRectangleRec(bottom, buildColors[i])
-		}
+		rl.DrawTexture(bg, 0, 0, rl.White)
 		car.Draw()
 
 		rl.EndMode2D()
