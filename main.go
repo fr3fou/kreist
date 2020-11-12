@@ -160,7 +160,7 @@ func main() {
 
 		rl.BeginMode2D(camera)
 
-		rl.DrawTexture(bg, 0, 0, rl.White)
+		rl.DrawTextureEx(bg, rl.Vector2{-1024, -768}, 0, 2, rl.White)
 		car.Draw()
 
 		rl.EndMode2D()
