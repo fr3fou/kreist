@@ -23,6 +23,7 @@ const squareSize = 20
 const limit = 500
 
 func (c Car) Draw() {
+	rl.DrawCircleV(c.FrontWheel, 10, rl.Green)
 	rl.DrawLineEx(c.BackWheel, c.FrontWheel, 50, rl.Pink)
 }
 
@@ -166,22 +167,16 @@ func main() {
 		// Draw grid lines
 
 		rl.BeginMode2D(camera)
-
-		rl.DrawCircleV(car.FrontWheel, 10, rl.Green)
-		for i := int32(0); i < 512; i++ {
-			rl.DrawLineV(
-				rl.NewVector2(float32(squareSize*i), 0),
-				rl.NewVector2(float32(squareSize*i), float32(1024)),
-				rl.LightGray,
-			)
-		}
-
-		for i := int32(0); i < 512; i++ {
-			rl.DrawLineV(
-				rl.NewVector2(0, float32(squareSize*i)),
-				rl.NewVector2(float32(768), float32(squareSize*i)),
-				rl.LightGray,
-			)
+		for i := range buildings {
+			top := buildings[i]
+			bottom := rl.Rectangle{
+				X:      top.X,
+				Y:      top.Y + top.Height,
+				Height: top.Height,
+				Width:  top.Width,
+			}
+			rl.DrawRectangleRec(top, buildColors[i])
+			rl.DrawRectangleRec(bottom, buildColors[i])
 		}
 		car.Draw()
 
