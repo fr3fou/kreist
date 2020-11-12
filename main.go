@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math"
 	"time"
 
@@ -21,6 +22,9 @@ type Car struct {
 
 const squareSize = 20
 const limit = 500
+const fric = 0.9
+const drag = 0.02
+const mass = 10
 
 func (c Car) Draw() {
 	rl.DrawCircleV(c.FrontWheel, 10, rl.Green)
@@ -125,18 +129,27 @@ func main() {
 
 	prev := time.Now()
 	for !rl.WindowShouldClose() {
-		// turn := 0.0
+		dt := time.Since(prev)
+		prev = time.Now()
+
 		if rl.IsKeyDown(rl.KeyR) {
 			car = Car{WheelBase: 70, Vector2: rl.Vector2{X: 0, Y: 0}, Heading: 0, SteeringAngle: 0}
 		}
 
+		// f = m * a
+		deacc := fric*10 + (drag * math.Pow(car.Speed, 2) / mass)
+
 		if rl.IsKeyDown(rl.KeyW) {
 			car.Speed += 5
-		} else {
-			car.Speed *= 0.99
 		}
 		if rl.IsKeyDown(rl.KeyS) {
 			car.Speed -= 5
+		}
+
+		if car.Speed > 0 {
+			car.Speed -= deacc * dt.Seconds()
+		} else {
+			car.Speed += deacc * dt.Seconds()
 		}
 
 		// Cap speed
@@ -149,22 +162,18 @@ func main() {
 
 		car.SteeringAngle = 0
 		if rl.IsKeyDown(rl.KeyD) {
-			// turn += 1
 			car.SteeringAngle = 30
 		}
 		if rl.IsKeyDown(rl.KeyA) {
 			car.SteeringAngle = -30
 		}
 
-		dt := time.Since(prev)
-		prev = time.Now()
 		car.Update(dt.Seconds())
 
 		camera.Target = car.Vector2
 
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.RayWhite)
-		// Draw grid lines
 
 		rl.BeginMode2D(camera)
 		for i := range buildings {
@@ -184,6 +193,7 @@ func main() {
 
 		rl.DrawText("Press R to restart", 5, 5, 25, rl.Black)
 		rl.DrawText("Use WASD to move", 5, 35, 25, rl.Black)
+		rl.DrawText(fmt.Sprintf("%d", int(car.Speed)), 1024-80, 768-50, 35, rl.Black)
 
 		rl.EndDrawing()
 	}
