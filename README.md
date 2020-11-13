@@ -4,6 +4,27 @@
 
 A simple car game with Raylib (WIP)
 
+## TODO
+
+- [ ] Proper level rendering (right now it renders an exported image from Tiled)
+- [ ] Collision layer
+- [ ] Refactor
+- [ ] Scale car / world
+- [ ] Adjust steering to be more realistic
+- [ ] Braking
+- [ ] Different surfaces should have different physics
+- [ ] Better name
+- [ ] Sounds
+- [ ] More Levels
+- [ ] Multiplayer
+- [ ] Nicknames
+- [ ] Main Menu
+- [ ] Level selection
+- [ ] Car selection
+  - [ ] Different cars should have different specifications
+    - [ ] Store them in JSON
+- [ ] Logo
+
 ## References
 
 - <http://engineeringdotnet.blogspot.com/2010/04/simple-2d-car-physics-in-games.html>
