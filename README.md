@@ -6,6 +6,8 @@ A simple car game with Raylib (WIP)
 
 ## TODO
 
+_in no particular order_
+
 - [ ] Proper level rendering (right now it renders an exported image from Tiled)
 - [ ] Collision layer
 - [ ] Refactor
