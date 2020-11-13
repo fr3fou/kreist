@@ -6,7 +6,7 @@ else
 	EXECUTABLE=$(MODULE_NAME)
 endif
 
-all: static-build bundle
+all: clean static-build bundle
 
 static-build:
 	go build -ldflags '-extldflags "-static"' .
@@ -15,3 +15,6 @@ bundle:
 	mkdir $(OUTPUT_DIR)
 	mv $(EXECUTABLE) $(OUTPUT_DIR)
 	cp assets $(OUTPUT_DIR) -r
+
+clean:
+	rm -r $(OUTPUT_DIR)
