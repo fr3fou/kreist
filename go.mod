@@ -1,4 +1,4 @@
-module f
+module github.com/fr3fou/car
 
 go 1.15
 
