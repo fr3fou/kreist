@@ -43,6 +43,8 @@ func (c Car) Draw() {
 	}
 
 	rl.DrawTextureEx(carTexture, rl.Vector2Subtract(c.Vector2, offset), float32(c.Heading), 1, rl.White)
+	// rl.DrawCircleV(c.BackWheel, 10, rl.Red)
+	// rl.DrawCircleV(c.FrontWheel, 10, rl.Green)
 }
 
 func (c *Car) Update(dt float64) {
@@ -99,7 +101,7 @@ func main() {
 	carTexture = rl.LoadTexture("car.png")
 	defer rl.UnloadTexture(carTexture)
 
-	car := Car{WheelBase: float64(carTexture.Width - 10.0), Vector2: rl.Vector2{X: 0, Y: 0}, Heading: 0, SteeringAngle: 0}
+	car := Car{WheelBase: float64(carTexture.Width - 45.0), Vector2: rl.Vector2{X: 0, Y: 0}, Heading: 0, SteeringAngle: 0}
 
 	camera := rl.Camera2D{
 		Target:   rl.NewVector2(float32(car.X+20), float32(car.Y+20)),
@@ -116,7 +118,7 @@ func main() {
 		prev = time.Now()
 
 		if rl.IsKeyDown(rl.KeyR) {
-			car = Car{WheelBase: float64(carTexture.Width - 10.0), Vector2: rl.Vector2{X: 0, Y: 0}, Heading: 0, SteeringAngle: 0}
+			car = Car{WheelBase: float64(carTexture.Width - 45.0), Vector2: rl.Vector2{X: 0, Y: 0}, Heading: 0, SteeringAngle: 0}
 		}
 
 		// f = m * a
