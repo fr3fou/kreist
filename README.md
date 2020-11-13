@@ -13,6 +13,7 @@ _in no particular order_
 - [ ] Refactor
 - [ ] Scale car / world
 - [ ] Adjust steering to be more realistic
+  - [x] Fixed wheelbase length
 - [ ] Braking
 - [ ] Different surfaces should have different physics
 - [ ] Better name

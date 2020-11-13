@@ -20,8 +20,8 @@ func main() {
 	screenWidth := int32(1024)
 	screenHeight := int32(768)
 
-	rl.InitWindow(screenWidth, screenHeight, "get real")
 	rl.SetConfigFlags(rl.FlagMsaa4xHint)
+	rl.InitWindow(screenWidth, screenHeight, "get real")
 
 	bg := rl.LoadTexture("assets/levels/level1.png")
 	defer rl.UnloadTexture(bg)
