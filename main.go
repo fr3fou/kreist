@@ -95,10 +95,10 @@ func main() {
 	rl.InitWindow(screenWidth, screenHeight, "get real")
 	rl.SetConfigFlags(rl.FlagMsaa4xHint)
 
-	bg := rl.LoadTexture("levels/level1.png")
+	bg := rl.LoadTexture("assets/levels/level1.png")
 	defer rl.UnloadTexture(bg)
 
-	carTexture = rl.LoadTexture("car.png")
+	carTexture = rl.LoadTexture("assets/cars/car.png")
 	defer rl.UnloadTexture(carTexture)
 
 	car := Car{WheelBase: float64(carTexture.Width - 45.0), Vector2: rl.Vector2{X: 0, Y: 0}, Heading: 0, SteeringAngle: 0}

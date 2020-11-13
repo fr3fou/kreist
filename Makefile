@@ -14,5 +14,4 @@ static-build:
 bundle:
 	mkdir $(OUTPUT_DIR)
 	mv $(EXECUTABLE) $(OUTPUT_DIR)
-	cp car.png $(OUTPUT_DIR)
-	cp levels $(OUTPUT_DIR) -r
+	cp assets $(OUTPUT_DIR) -r
