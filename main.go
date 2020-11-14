@@ -6,6 +6,8 @@ import (
 	"time"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
+	"github.com/lafriks/go-tiled"
+	"github.com/lafriks/go-tiled/render"
 )
 
 const (
@@ -23,7 +25,27 @@ func main() {
 	rl.SetConfigFlags(rl.FlagMsaa4xHint)
 	rl.InitWindow(screenWidth, screenHeight, "get real")
 
-	bg := rl.LoadTexture("assets/levels/level1.png")
+	level1, err := tiled.LoadFromFile("assets/levels/level1.tmx")
+	if err != nil {
+		panic(err)
+	}
+
+	renderer, err := render.NewRenderer(level1)
+	if err != nil {
+		fmt.Printf("map unsupported for rendering: %s", err.Error())
+		panic(err)
+	}
+
+	err = renderer.RenderVisibleLayers()
+	if err != nil {
+		fmt.Printf("layer unsupported for rendering: %s", err.Error())
+		panic(err)
+	}
+
+	img := rl.NewImageFromImage(renderer.Result)
+	defer rl.UnloadImage(img)
+
+	bg := rl.LoadTextureFromImage(img)
 	defer rl.UnloadTexture(bg)
 
 	carTexture := rl.LoadTexture("assets/cars/car.png")
