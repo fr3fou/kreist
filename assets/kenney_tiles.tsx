@@ -768,15 +768,35 @@
  </tile>
  <tile id="255">
   <image width="128" height="128" source="Tiles/Sand road/road_sand35.png"/>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="107.25" y="1.5">
+    <polygon points="0,0 5.75,12.5 19.5,17.5 20.25,-1.5"/>
+   </object>
+   <object id="2" x="20" y="1">
+    <polygon points="0,0 2.75,26.25 11,54 28,78.25 52,95 78.5,104.5 107.25,107.25 107.5,126.25 76,124 42.75,114.25 13.25,93.25 -5.25,64.75 -16,31.25 -19.25,-0.25"/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="256">
   <image width="128" height="128" source="Tiles/Sand road/road_sand36.png"/>
  </tile>
  <tile id="257">
   <image width="128" height="128" source="Tiles/Sand road/road_sand37.png"/>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0.75" y="0">
+    <polygon points="0,0 -0.5,19 13.25,14.5 19.75,0.25"/>
+   </object>
+   <object id="2" x="0.25" y="107.5">
+    <polygon points="0,0 27.75,-3 55,-10.5 79.5,-28.25 96.75,-51.75 106,-80.75 108,-107 125.75,-107.5 124,-75 114.25,-42 95,-14.5 64.25,6.25 32.75,15.75 -0.5,20.5"/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="258">
   <image width="128" height="128" source="Tiles/Sand road/road_sand38.png"/>
+  <objectgroup draworder="index" id="3">
+   <object id="4" x="-0.25" y="-0.25" width="20" height="128.25"/>
+   <object id="5" x="108.25" y="0" width="20.25" height="127.75"/>
+  </objectgroup>
  </tile>
  <tile id="259">
   <image width="128" height="128" source="Tiles/Sand road/road_sand39.png"/>
@@ -924,18 +944,42 @@
  </tile>
  <tile id="307">
   <image width="128" height="128" source="Tiles/Sand road/road_sand87.png"/>
+  <objectgroup draworder="index" id="4">
+   <object id="3" x="0.5" y="-0.25" width="19" height="127.75"/>
+   <object id="4" x="108" y="-0.25" width="19.5" height="127.75"/>
+  </objectgroup>
  </tile>
  <tile id="308">
   <image width="128" height="128" source="Tiles/Sand road/road_sand88.png"/>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0.5" y="0" width="126.75" height="19.5"/>
+   <object id="2" x="0.125" y="108" width="127.693" height="19.6364"/>
+  </objectgroup>
  </tile>
  <tile id="309">
   <image width="128" height="128" source="Tiles/Sand road/road_sand89.png"/>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="108.25" y="127.5">
+    <polygon points="0,0 5.25,-14.25 19.25,-19.25 19.5,-1.25"/>
+   </object>
+   <object id="2" x="19" y="127">
+    <polygon points="0,0 2.75,-27.25 12.75,-56.5 29.25,-78.75 52.5,-97.25 80,-105.75 108.75,-107.25 108.5,-126 77,-123.5 45.25,-114 14.75,-93.75 -5.25,-65.5 -15.5,-32 -18.25,-0.5"/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="310">
   <image width="128" height="128" source="Tiles/Sand road/road_sand90.png"/>
  </tile>
  <tile id="311">
   <image width="128" height="128" source="Tiles/Sand road/road_sand01.png"/>
+  <objectgroup draworder="index" id="3">
+   <object id="5" x="0.5" y="127.25">
+    <polygon points="0,0 19,0.25 14.25,-13 0,-19.25"/>
+   </object>
+   <object id="6" x="108.75" y="126.25">
+    <polygon points="0,0 -3.75,-25.25 -12,-54 -29,-78.5 -51.75,-94.75 -80.5,-104.25 -109,-106.5 -108.75,-126 -76.75,-123.75 -44.75,-114 -15.75,-93.5 4.5,-65.25 14.75,-32.75 19,0.75"/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="312">
   <image width="56" height="56" source="Objects/barrel_blue.png"/>

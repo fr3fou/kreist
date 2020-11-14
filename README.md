@@ -8,7 +8,7 @@ A simple car game with Raylib (WIP)
 
 _in no particular order_
 
-- [ ] Proper level rendering (right now it renders an exported image from Tiled)
+- [x] Proper level rendering (right now it renders an exported image from Tiled)
 - [ ] Collision layer
 - [ ] Refactor
 - [ ] Scale car / world
