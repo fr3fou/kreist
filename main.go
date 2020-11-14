@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math"
 	"time"
 
@@ -25,21 +26,19 @@ func main() {
 	rl.SetConfigFlags(rl.FlagMsaa4xHint)
 	rl.InitWindow(screenWidth, screenHeight, "get real")
 
-	level1, err := tiled.LoadFromFile("assets/levels/level1.tmx")
+	level1, err := tiled.LoadFromFile("levels/level1.tmx")
 	if err != nil {
-		panic(err)
+		log.Fatalf("failed loading tile for rendering: %s", err)
 	}
 
 	renderer, err := render.NewRenderer(level1)
 	if err != nil {
-		fmt.Printf("map unsupported for rendering: %s", err.Error())
-		panic(err)
+		log.Fatalf("map unsupported for rendering: %s", err)
 	}
 
 	err = renderer.RenderVisibleLayers()
 	if err != nil {
-		fmt.Printf("layer unsupported for rendering: %s", err.Error())
-		panic(err)
+		log.Fatalf("layer unsupported for rendering: %s", err)
 	}
 
 	img := rl.NewImageFromImage(renderer.Result)
@@ -48,8 +47,12 @@ func main() {
 	bg := rl.LoadTextureFromImage(img)
 	defer rl.UnloadTexture(bg)
 
-	carTexture := rl.LoadTexture("assets/cars/car.png")
-	defer rl.UnloadTexture(carTexture)
+	// Load image and rotate
+	carImg := rl.LoadImage("assets/Cars/car_black_3.png")
+	defer rl.UnloadImage(carImg)
+	rl.ImageRotateCW(carImg)
+
+	carTexture := rl.LoadTextureFromImage(carImg)
 
 	car := NewCar(float64(carTexture.Width-45.0), carTexture)
 
