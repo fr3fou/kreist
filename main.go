@@ -26,12 +26,12 @@ func main() {
 	rl.SetConfigFlags(rl.FlagMsaa4xHint)
 	rl.InitWindow(screenWidth, screenHeight, "get real")
 
-	level1, err := tiled.LoadFromFile("levels/level1.tmx")
+	level, err := tiled.LoadFromFile("levels/level1.tmx")
 	if err != nil {
 		log.Fatalf("failed loading tile for rendering: %s", err)
 	}
 
-	renderer, err := render.NewRenderer(level1)
+	renderer, err := render.NewRenderer(level)
 	if err != nil {
 		log.Fatalf("map unsupported for rendering: %s", err)
 	}
@@ -91,6 +91,10 @@ func main() {
 
 		car.Update(dt.Seconds())
 
+		x := int(car.X / (128 * 2))
+		y := int(car.Y / (128 * 2))
+		currentTile := level.Layers[1].Tiles[y*level.Width+x]
+
 		camera.Target = car.Vector2
 
 		rl.BeginDrawing()
@@ -98,7 +102,7 @@ func main() {
 
 		rl.BeginMode2D(camera)
 
-		rl.DrawTextureEx(bg, rl.Vector2{-1024, -768}, 0, 2, rl.White)
+		rl.DrawTextureEx(bg, rl.Vector2{0, 0}, 0, 2, rl.White)
 		car.Draw()
 
 		rl.EndMode2D()
@@ -106,6 +110,7 @@ func main() {
 		rl.DrawText("Press R to restart", 5, 5, 25, rl.Black)
 		rl.DrawText("Use WASD to move", 5, 35, 25, rl.Black)
 		rl.DrawText(fmt.Sprintf("%d", int(car.Speed)), 1024-80, 768-50, 35, rl.Black)
+		rl.DrawText(fmt.Sprintf("currentTile.ID = %d", currentTile.ID+1), 5, 768-50, 35, rl.Black)
 
 		rl.EndDrawing()
 	}
