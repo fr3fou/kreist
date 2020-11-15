@@ -33,3 +33,4 @@ _in no particular order_
 
 - <http://engineeringdotnet.blogspot.com/2010/04/simple-2d-car-physics-in-games.html>
 - <http://kidscancode.org/godot_recipes/2d/car_steering/>
+- <https://doc.mapeditor.org/en/stable/reference/tmx-map-format/#object>
