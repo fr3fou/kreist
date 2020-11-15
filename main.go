@@ -122,14 +122,20 @@ func main() {
 							levelScale,
 						)
 						next := rl.Vector2Add(origin, current)
-						rl.DrawLineV(start, next, rl.Gray)
+						rl.DrawLineEx(start, next, 4, rl.Gray)
 						start = next
 					}
 					continue
 				}
 
 				// Render rectangles
-				rl.DrawRectangleLines(int32(origin.X), int32(origin.Y), int32(obj.Width)*levelScale, int32(obj.Height)*levelScale, rl.Gray)
+				rect := rl.Rectangle{
+					X:      origin.X,
+					Y:      origin.Y,
+					Width:  float32(obj.Width * levelScale),
+					Height: float32(obj.Height * levelScale),
+				}
+				rl.DrawRectangleLinesEx(rect, 4, rl.Gray)
 			}
 		}
 
@@ -138,7 +144,6 @@ func main() {
 		rl.DrawText("Press R to restart", 5, 5, 25, rl.Black)
 		rl.DrawText("Use WASD to move", 5, 35, 25, rl.Black)
 		rl.DrawText(fmt.Sprintf("%d", int(car.Speed)), 1024-80, 768-50, 35, rl.Black)
-		rl.DrawText(fmt.Sprintf("%d,%d", x, y), 5, 768-50, 35, rl.Black)
 
 		rl.EndDrawing()
 	}
