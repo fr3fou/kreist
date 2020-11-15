@@ -9,7 +9,7 @@ A simple car game with Raylib (WIP)
 _in no particular order_
 
 - [x] Proper level rendering (right now it renders an exported image from Tiled)
-  - [ ] Implement custom raylib renderer for `lafriks/go-tiled`
+  - [x] ~~Implement custom raylib renderer for `lafriks/go-tiled`~~ not going to be needed
 - [ ] Collision layer
 - [ ] Refactor
 - [ ] Scale car / world
