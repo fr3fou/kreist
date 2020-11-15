@@ -111,8 +111,12 @@ func main() {
 				if len(obj.Properties) != 0 {
 					continue
 				}
-				start := rl.Vector2{X: (float32(obj.X) + float32(x)*128) * 2, Y: (float32(obj.Y) + float32(y)*128) * 2}
-				rl.DrawCircleV(start, 10, rl.Pink)
+				origin := rl.Vector2Scale(
+					rl.Vector2{X: (float32(obj.X) + float32(x)*128), Y: (float32(obj.Y) + float32(y)*128)},
+					2,
+				)
+
+				rl.DrawCircleV(origin, 10, rl.Pink)
 
 				if len(obj.Ellipses) == 1 {
 					// TODO: render Ellipse
@@ -123,11 +127,17 @@ func main() {
 				}
 
 				if len(obj.Polygons) == 1 {
-					// for _, point := range *obj.Polygons[0].Points {
-					// 	end := rl.Vector2{X: float32(point.X) + float32(x)*128*2, Y: float32(point.Y) + float32(y)*128*2}
-					// 	rl.DrawLineV(start, end, rl.Gray)
-					// 	start = end
-					// }
+					start := origin
+					for _, point := range *obj.Polygons[0].Points {
+						next := rl.Vector2Add(origin,
+							rl.Vector2Scale(
+								rl.Vector2{X: float32(point.X), Y: float32(point.Y)},
+								2,
+							),
+						)
+						rl.DrawLineV(start, next, rl.Gray)
+						start = next
+					}
 
 					// rl.DrawLineV(origin, rl.Vector2{float32(points[0].X) + float32(x)*128*2, float32(points[0].Y) + float32(y)*128*2}, rl.Gray)
 					// rl.Draw
