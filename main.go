@@ -12,7 +12,8 @@ import (
 )
 
 const (
-	squareSize = 20
+	levelScale = 2
+	tileSize   = 128
 	limit      = 500
 	fric       = 0.9
 	drag       = 0.02
@@ -91,8 +92,8 @@ func main() {
 
 		car.Update(dt.Seconds())
 
-		x := int(car.X / (128 * 2)) // 2 is the map scale, 128 is the tile size
-		y := int(car.Y / (128 * 2)) // 2 is the map scale, 128 is the tile size
+		x := int(car.X / (tileSize * levelScale))
+		y := int(car.Y / (tileSize * levelScale))
 
 		camera.Target = car.Vector2
 
@@ -101,7 +102,7 @@ func main() {
 
 		rl.BeginMode2D(camera)
 
-		rl.DrawTextureEx(bg, rl.Vector2{X: 0, Y: 0}, 0, 2, rl.White)
+		rl.DrawTextureEx(bg, rl.Vector2{X: 0, Y: 0}, 0, levelScale, rl.White)
 		car.Draw()
 
 		currentTile := level.Layers[1].Tiles[y*level.Width+x]
@@ -113,10 +114,8 @@ func main() {
 				}
 				origin := rl.Vector2Scale(
 					rl.Vector2{X: (float32(obj.X) + float32(x)*128), Y: (float32(obj.Y) + float32(y)*128)},
-					2,
+					levelScale,
 				)
-
-				rl.DrawCircleV(origin, 10, rl.Pink)
 
 				if len(obj.Ellipses) == 1 {
 					// TODO: render Ellipse
@@ -129,18 +128,14 @@ func main() {
 				if len(obj.Polygons) == 1 {
 					start := origin
 					for _, point := range *obj.Polygons[0].Points {
-						next := rl.Vector2Add(origin,
-							rl.Vector2Scale(
-								rl.Vector2{X: float32(point.X), Y: float32(point.Y)},
-								2,
-							),
+						current := rl.Vector2Scale(
+							rl.Vector2{X: float32(point.X), Y: float32(point.Y)},
+							levelScale,
 						)
+						next := rl.Vector2Add(origin, current)
 						rl.DrawLineV(start, next, rl.Gray)
 						start = next
 					}
-
-					// rl.DrawLineV(origin, rl.Vector2{float32(points[0].X) + float32(x)*128*2, float32(points[0].Y) + float32(y)*128*2}, rl.Gray)
-					// rl.Draw
 				}
 			}
 		}
@@ -151,7 +146,6 @@ func main() {
 		rl.DrawText("Use WASD to move", 5, 35, 25, rl.Black)
 		rl.DrawText(fmt.Sprintf("%d", int(car.Speed)), 1024-80, 768-50, 35, rl.Black)
 		rl.DrawText(fmt.Sprintf("%d,%d", x, y), 5, 768-50, 35, rl.Black)
-		// rl.DrawText(fmt.Sprintf("currentTile.ID = %d", currentTile.ID), 5, 768-50, 35, rl.Black)
 
 		rl.EndDrawing()
 	}
