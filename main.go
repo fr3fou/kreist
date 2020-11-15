@@ -108,23 +108,12 @@ func main() {
 		currentTile := level.Layers[1].Tiles[y*level.Width+x]
 		for _, objGroup := range level.Tilesets[0].Tiles[currentTile.ID].ObjectGroups {
 			for _, obj := range objGroup.Objects {
-				// We don't care about this object if it's a property
-				if len(obj.Properties) != 0 {
-					continue
-				}
 				origin := rl.Vector2Scale(
 					rl.Vector2{X: (float32(obj.X) + float32(x)*128), Y: (float32(obj.Y) + float32(y)*128)},
 					levelScale,
 				)
 
-				if len(obj.Ellipses) == 1 {
-					// TODO: render Ellipse
-				}
-
-				if len(obj.PolyLines) == 1 {
-					// TODO: render PolyLine
-				}
-
+				// Render polygons
 				if len(obj.Polygons) == 1 {
 					start := origin
 					for _, point := range *obj.Polygons[0].Points {
@@ -136,7 +125,11 @@ func main() {
 						rl.DrawLineV(start, next, rl.Gray)
 						start = next
 					}
+					continue
 				}
+
+				// Render rectangles
+				rl.DrawRectangleLines(int32(origin.X), int32(origin.Y), int32(obj.Width)*levelScale, int32(obj.Height)*levelScale, rl.Gray)
 			}
 		}
 
