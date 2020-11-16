@@ -3,7 +3,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
 
@@ -13,6 +13,8 @@ jobs:
       #     sudo apt upgrade
       #     sudo apt install -y gcc libglfw3-dev libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev libxext-dev libxfixes-dev libgl1-mesa-dev xorg-dev
       #     echo $LD_LIBRARY_PATH
+      - name: Install deps
+        run: sudo apt install xorg-dev
 
       - name: Build
         run: go build .
