@@ -15,6 +15,9 @@ jobs:
 
       - name: Build
         run: |
+          ls -A
+          pwd
+          go version
           make
 
       - name: Upload zip
