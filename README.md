@@ -28,6 +28,7 @@ _in no particular order_
   - [ ] Different cars should have different specifications
     - [ ] Store them in JSON
 - [ ] Logo
+- [ ] CI Building
 
 ## References
 
