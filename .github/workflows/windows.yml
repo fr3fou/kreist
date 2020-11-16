@@ -6,7 +6,7 @@ jobs:
     runs-on: windows-latest
     defaults:
       run:
-        shell: bash.exe --login -eo pipefail "{0}"
+        shell: C:\msys64.exe "{0}"
     steps:
       - uses: actions/checkout@v1
 
