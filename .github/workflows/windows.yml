@@ -6,22 +6,21 @@ jobs:
     runs-on: windows-latest
     defaults:
       run:
-        shell: C:\msys64\usr\bin\bash.exe --login -eo pipefail "{0}"
+        shell: msys2 {0}
     steps:
       - uses: actions/checkout@v1
 
-      - name: Install deps
-        run: pacman -S --noconfirm base-devel mingw-w64-x86_64-toolchain git
+       - uses: msys2/setup-msys2@v2
+        with:
+          path-type: inherit
+          update: true
+          install: base-devel mingw-w64-x86_64-toolchain git
 
       - name: Build
-        run: |
-          ls -A
-          pwd
-          go version
-          make
+        run: make
 
       - name: Upload zip
         uses: actions/upload-artifact@v2
         with:
           name: car-windows.zip
-          path: car.zip
+          path: car-out.zip
