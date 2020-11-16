@@ -4,13 +4,16 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
     steps:
       - uses: actions/checkout@v1
 
-      - name: Install deps
       - uses: msys2/setup-msys2@v2
-        run: |
-          pacman -S --noconfirm mingw-w64-x86_64-toolchain git
+        with:
+          update: true
+          install: base-devel mingw-w64-x86_64-toolchain git
 
       - name: Build
         run: |
