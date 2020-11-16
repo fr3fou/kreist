@@ -2,11 +2,11 @@ name: Build for Windows
 on: [push, pull_request]
 
 jobs:
-  defaults:
-    run:
-      shell: bash.exe --login -eo pipefail "{0}"
   build:
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash.exe --login -eo pipefail "{0}"
     steps:
       - uses: actions/checkout@v1
 
