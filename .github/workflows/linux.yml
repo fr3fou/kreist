@@ -3,14 +3,16 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
 
       - name: Install deps
         run: |
-          sudo apt update
-          sudo apt install -y xorg-dev libglu1-mesa-dev
+          sudo apt update -qq
+          sudo apt upgrade
+          sudo apt install -y gcc libglfw3-dev libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev libxext-dev libxfixes-dev libgl1-mesa-dev
+          echo $LD_LIBRARY_PATH
 
       - name: Build
         run: make
