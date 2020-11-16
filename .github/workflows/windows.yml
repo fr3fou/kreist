@@ -1,0 +1,23 @@
+name: Build for Windows
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install deps
+      - uses: msys2/setup-msys2@v2
+        run: |
+          pacman -S --noconfirm mingw-w64-x86_64-toolchain git
+
+      - name: Build
+        run: |
+          make
+
+      - name: Upload zip
+        uses: actions/upload-artifact@v2
+        with:
+          name: game.zip
+          path: car.zip

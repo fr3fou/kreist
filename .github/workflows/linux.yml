@@ -1,0 +1,23 @@
+name: Build for Linux
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -qq libgl1-mesa-dev libxi-dev libxcursor-dev libxrandr-dev libxinerama-dev
+
+      - name: Build
+        run: |
+          make
+
+      - name: Upload zip
+        uses: actions/upload-artifact@v2
+        with:
+          name: game.zip
+          path: car.zip
