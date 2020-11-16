@@ -1,4 +1,4 @@
-# car
+# kreist
 
 ![](./demo.png)
 
@@ -17,7 +17,7 @@ _in no particular order_
   - [x] Fixed wheelbase length
 - [ ] Braking
 - [ ] Different surfaces should have different physics
-- [ ] Better name
+- [x] Better name - thanks https://github.com/impzero
 - [ ] Sounds
 - [ ] More Levels
 - [ ] Multiplayer
