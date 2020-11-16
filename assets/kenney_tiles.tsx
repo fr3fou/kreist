@@ -805,6 +805,9 @@
  </tile>
  <tile id="256">
   <image width="128" height="128" source="tiles/sand_road/road_sand36.png"/>
+  <objectgroup draworder="index" id="3">
+   <object id="2" x="0.5" y="108" width="128" height="19"/>
+  </objectgroup>
  </tile>
  <tile id="257">
   <image width="128" height="128" source="tiles/sand_road/road_sand37.png"/>
