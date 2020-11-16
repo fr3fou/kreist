@@ -3,8 +3,10 @@ OUTPUT_DIR=car
 
 ifeq ($(OS), Windows_NT)
 	EXECUTABLE=$(MODULE_NAME).exe
+	BUILD_FLAGS=-ldflags '-extldflags "-static"' .
 else
 	EXECUTABLE=$(MODULE_NAME)
+	BUILD_FLAGS=.
 endif
 
 ifneq ("$(wildcard $(OUTPUT_DIR))","")
@@ -14,7 +16,7 @@ endif
 all: clean static-build bundle
 
 static-build:
-	go build -ldflags '-extldflags "-static"' .
+	go build $(BUILD_FLAGS)
 
 bundle:
 	mkdir $(OUTPUT_DIR)
