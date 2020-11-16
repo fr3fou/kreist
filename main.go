@@ -49,7 +49,7 @@ func main() {
 	defer rl.UnloadTexture(bg)
 
 	// Load image and rotate
-	carImg := rl.LoadImage("assets/Cars/car_black_3.png")
+	carImg := rl.LoadImage("assets/cars/car_black_3.png")
 	defer rl.UnloadImage(carImg)
 	rl.ImageRotateCW(carImg)
 
