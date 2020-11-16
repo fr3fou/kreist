@@ -1,4 +1,4 @@
-module github.com/fr3fou/car
+module github.com/fr3fou/kreist
 
 go 1.15
 

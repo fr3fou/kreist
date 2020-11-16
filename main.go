@@ -25,7 +25,7 @@ func main() {
 	screenHeight := int32(768)
 
 	rl.SetConfigFlags(rl.FlagMsaa4xHint)
-	rl.InitWindow(screenWidth, screenHeight, "get real")
+	rl.InitWindow(screenWidth, screenHeight, "Kreist")
 
 	level, err := tiled.LoadFromFile("levels/level2.tmx")
 	if err != nil {

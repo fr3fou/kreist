@@ -16,5 +16,5 @@ jobs:
       - name: Upload zip
         uses: actions/upload-artifact@v2
         with:
-          name: car-linux.zip
-          path: car-out.zip
+          name: kreist-linux.zip
+          path: kreist-out
