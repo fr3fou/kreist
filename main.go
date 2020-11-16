@@ -27,7 +27,7 @@ func main() {
 	rl.SetConfigFlags(rl.FlagMsaa4xHint)
 	rl.InitWindow(screenWidth, screenHeight, "get real")
 
-	level, err := tiled.LoadFromFile("levels/level1.tmx")
+	level, err := tiled.LoadFromFile("levels/level2.tmx")
 	if err != nil {
 		log.Fatalf("failed loading tile for rendering: %s", err)
 	}
