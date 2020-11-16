@@ -1,5 +1,5 @@
 MODULE_NAME=car
-OUTPUT_DIR=car
+OUTPUT_DIR=car-out
 
 ifeq ($(OS), Windows_NT)
 	EXECUTABLE=$(MODULE_NAME).exe

@@ -11,10 +11,7 @@ jobs:
         run: sudo apt install xorg-dev libgl-dev
 
       - name: Build
-        run: |
-          ls -A
-          pwd
-          make
+        run: make
 
       - name: Upload zip
         uses: actions/upload-artifact@v2
