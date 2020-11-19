@@ -29,6 +29,7 @@ _in no particular order_
     - [ ] Store them in JSON
 - [ ] Logo
 - [x] CI Building
+- [ ] Replace dt computation with `rl.GetFrameTime()`
 
 ## References
 
