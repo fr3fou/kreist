@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"math"
-	"time"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 	"github.com/lafriks/go-tiled"
@@ -66,10 +65,8 @@ func main() {
 
 	rl.SetTargetFPS(60)
 
-	prev := time.Now()
 	for !rl.WindowShouldClose() {
-		dt := time.Since(prev)
-		prev = time.Now()
+		dt := rl.GetFrameTime()
 
 		if rl.IsKeyDown(rl.KeyR) {
 			car = NewCar(float64(carTexture.Width-45.0), carTexture)
@@ -90,7 +87,7 @@ func main() {
 			car.SteeringAngle = -50
 		}
 
-		car.Update(dt.Seconds())
+		car.Update(float64(dt))
 
 		x := int(car.X / (tileSize * levelScale))
 		y := int(car.Y / (tileSize * levelScale))
