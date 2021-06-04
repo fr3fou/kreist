@@ -13,7 +13,7 @@ import (
 const (
 	levelScale = 2
 	tileSize   = 128
-	limit      = 500
+	limit      = 700
 	fric       = 0.9
 	drag       = 0.02
 	mass       = 10
@@ -81,10 +81,12 @@ func main() {
 
 		car.SteeringAngle = 0
 		if rl.IsKeyDown(rl.KeyD) {
-			car.SteeringAngle = 50
+			m := 0.2 + 1 - math.Abs(car.Speed)/(limit+20)
+			car.SteeringAngle = 50 * m
 		}
 		if rl.IsKeyDown(rl.KeyA) {
-			car.SteeringAngle = -50
+			m := 0.2 + 1 - math.Abs(car.Speed)/(limit+20)
+			car.SteeringAngle = -50 * m
 		}
 
 		car.Update(float64(dt))
@@ -155,3 +157,18 @@ func deg2Rad(x float64) float64 {
 func rad2Deg(x float64) float64 {
 	return x * 180 / math.Pi
 }
+
+func mapRange(input, inputStart, inputEnd, outputStart, outputEnd float64) float64 {
+	inputRange := int(inputEnd - inputStart)
+	outputRange := int(outputEnd - outputStart)
+	return (input-inputStart)*float64(outputRange/inputRange) + outputStart
+}
+
+//func mapOneRangeToAnother(sourceNumber, fromA, fromB, toA, toB float64) float64 {
+//	deltaA := fromB - fromA
+//	deltaB := toB - toA
+//	scale := deltaB / deltaA
+//	negA := -1 * fromA
+//	offset := (negA * scale) + toA
+//	return (sourceNumber * scale) + offset
+//}
